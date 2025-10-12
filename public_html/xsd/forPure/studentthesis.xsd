@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:commons="v3.commons.pure.atira.dk"
+           xmlns="v1.studentthesis-sync.pure.atira.dk"
+           attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="v1.studentthesis-sync.pure.atira.dk">
+
+    <xs:import schemaLocation="commons.xsd" namespace="v3.commons.pure.atira.dk" />
+
+    <xs:element name="studentTheses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="studentThesis" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="studentThesis" type="studentThesisType"/>
+
+    <xs:complexType name="studentThesisType">
+        <xs:sequence>
+            <xs:element name="title" type="commons:string_1024" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The title of the event</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="translatedTitles" type="translatedTitles" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Translated titles of the student thesis, use if title in different in another language</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subTitle" type="commons:string_1024" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The title of the event</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="translatedSubTitles" type="translatedTitles" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Translated titles of the student thesis, use if title in different in another language</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="language" type="language">
+                <xs:annotation>
+                    <xs:documentation>Classification from /dk/atira/pure/core/languages</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="awardDate" type="commons:compoundDate" minOccurs="0">
+                <xs:annotation><xs:documentation>The award date of the student thesis</xs:documentation></xs:annotation>
+            </xs:element>
+            <xs:element name="abstract" type="commons:localized_string" minOccurs="0">
+                <xs:annotation><xs:documentation><![CDATA[The abstract of the student thesis. It is recommended that this field is wrapped in a CDATA field, and that < and > characters are encoded to &gt; and &lt;, if they are not a part of HTML markup in the data.]]></xs:documentation></xs:annotation>
+            </xs:element>
+            <xs:element name="authors" type="authors"/>
+            <xs:element name="supervisors" type="supervisors" minOccurs="0"/>
+            <xs:element name="sponsors" type="sponsors" minOccurs="0"/>
+            <xs:element name="awardingInstitutions" type="awardingInstitutions" minOccurs="0"/>
+            <xs:element name="organisations" type="organisations" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The internal organisations related to the student thesis</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="managingOrganisation" type="organisation" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The organisation in charge of the student thesis in Pure. This must always be an internal organisation</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="externalOrganisations" type="externalOrganisations" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>List of external organisations</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="keywords" type="commons:keywords" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Keywords</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="links" type="commons:links" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The links for the student thesis</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="documents" type="documents" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Documents for the student thesis</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="bibliographicalNote" type="commons:localized_string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Text field for adding bibliographical note data to the student thesis
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="workflow" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Used to set the workflow state of the student thesis (Workflow states: entryInProgress, forValidation, validated)
+                        NOTE: workflow must be enabled in Pure, if values are present in this tag
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="visibility" type="commons:visibility" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="typeClassification" name="type" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Classification scheme /dk/atira/pure/studentthesis/studentthesistypes
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="commons:string_400" name="id">
+            <xs:annotation>
+                <xs:documentation>Id of the studentthesis. This would be the id from an external source e.g. an HR system.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="managedInPure" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="translatedTitles">
+        <xs:sequence>
+            <xs:element name="title" type="commons:localized_text_1024_lang" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Translated title of the student thesis. Can be specified in multiple languages</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="authors">
+        <xs:sequence>
+            <xs:element name="author" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="role" type="authorRole">
+                            <xs:annotation>
+                                <xs:documentation>Classification scheme /dk/atira/pure/studentthesis/roles/studentthesis/</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="person" type="internalExternalPerson" minOccurs="0"/>
+                        <xs:element name="organisations" type="organisations" minOccurs="0"/>
+                    </xs:all>
+                    <xs:attribute type="commons:string_400" name="id" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Id of the Author Association. This id is Mandatory.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="supervisors">
+        <xs:sequence>
+            <xs:element name="thesisSupervisor" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="firstName" type="commons:string_1024" minOccurs="0"/>
+                        <xs:element name="lastName" type="commons:string_1024" minOccurs="0"/>
+                        <xs:element name="person" type="internalExternalPerson"/>
+                        <xs:element name="role" type="xs:string" minOccurs="1"/>
+                        <xs:element name="organisations" type="organisations" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Internal or external organisation related to the person. If the person is external, the organisation cannot be an internal organisation</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attributeGroup ref="commons:id"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sponsors">
+        <xs:sequence>
+            <xs:element name="sponsor" type="commons:externalOrganisation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="organisations">
+        <xs:sequence>
+            <xs:element name="organisation" type="organisation" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="organisation">
+        <xs:sequence>
+            <xs:element name="name" type="commons:localized_string" minOccurs="0"/>
+            <xs:element name="country" type="commons:country" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Classification from /dk/atira/pure/core/countries
+                        Only used if this elements makes Pure create a new external organisation
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commons:lookupId"/>
+    </xs:complexType>
+
+    <xs:complexType name="externalOrganisations">
+        <xs:sequence>
+            <xs:element name="externalOrganisation" type="commons:externalOrganisation" maxOccurs="unbounded"
+                        minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        External Organisations matched by PureID, SourceID, ClassificationID(in that order)
+                        If no match is found the system will try to match by name, type and country(all fields, depending on which are supplied).
+                        If no match is found either way, the external organisation is automatically created with the supplied information.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="awardingInstitutions">
+        <xs:sequence>
+            <xs:element name="awardingInstitution" type="awardingInstitution" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="awardingInstitution">
+        <xs:choice>
+            <xs:element name="organisation" type="organisation" minOccurs="0"/>
+            <xs:element name="externalOrganisation" type="commons:externalOrganisation" minOccurs="0"/>
+        </xs:choice>
+        <xs:attributeGroup ref="commons:id"/>
+    </xs:complexType>
+
+    <xs:complexType name="documents">
+        <xs:sequence>
+            <xs:element name="studentThesisDocuments" type="studentThesisDocument" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="studentThesisDocument">
+        <xs:all>
+            <xs:element name="type" type="documentType">
+                <xs:annotation>
+                    <xs:documentation>Classification scheme /dk/atira/pure/core/document/studentthesisdoctypes</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="versionType" type="versionType" minOccurs="0" default="other">
+                <xs:annotation>
+                    <xs:documentation>Classification scheme /dk/atira/pure/core/document/studentthesisversiontypes</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="rightsStatement" type="commons:string_1024" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>If custom rights statements is enabled in the editor, this field can be used for importing the statements</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="fileLocation" type="commons:string_1024" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Location where Pure can read the file from. Must be prefixed with protocol - either
+                        http or https. Https is only supported, if the remote server uses a trusted
+                        certificate. If the remote server uses a self-signed certificate,
+                        the JVM running Pure will need an updated keystore.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mimeType" type="commons:string_256" minOccurs="0"/>
+            <xs:element name="fileName" type="commons:string_256" minOccurs="0"/>
+            <xs:element name="title" type="commons:string_1024" minOccurs="0"/>
+            <xs:element name="embargoDate" type="commons:date" minOccurs="0"/>
+            <xs:element name="embargoReason" type="embargoReason" minOccurs="0" default="other">
+                <xs:annotation>
+                    <xs:documentation>Classification scheme /dk/atira/pure/core/document/studentthesisembargoreason</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="visibility" type="commons:visibilityWithOutConfidential" minOccurs="0"/>
+        </xs:all>
+        <xs:attribute type="commons:string_400" name="id" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="internalExternalPerson">
+        <xs:annotation>
+            <xs:documentation>
+                Can be an internal or external person. Use origin to enforce either internal or external
+                If the person is an internal person in Pure, then the lookupId attribute must be used.
+                If the person is an external person, and id is given, matching will be done on the id. If not found, then matching will be done on name. If still not found, then an external person with the specified id and name will be created.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="firstName" type="commons:string_1024" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>First name of the person. Will only be used on external persons</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="lastName" type="commons:string_1024" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Last name of the person. Will only be used on external persons</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="country" type="commons:country" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Classification scheme /dk/atira/pure/core/countries</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="type" type="commons:classification" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Classification scheme /dk/atira/pure/externalperson/externalpersontypes/externalperson</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attributeGroup ref="commons:originId"/>
+    </xs:complexType>
+
+    <xs:simpleType name="language">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/core/languages</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="typeClassification">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/studentthesis/studentthesistypes</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="authorRole">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/studentthesis/roles/studentthesis</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="embargoReason">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/core/document/studentthesisembargoreason</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="versionType">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/core/document/studentthesisversiontypes</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="documentType">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/core/document/studentthesisdoctypes</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+    <xs:simpleType name="subdivision">
+        <xs:annotation>
+            <xs:appinfo>/dk/atira/pure/core/countries/subdivision</xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="commons:classification" />
+    </xs:simpleType>
+
+</xs:schema>
