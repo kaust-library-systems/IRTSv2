@@ -1,3 +1,11 @@
+# Ignore config files with sensitive information
+config/shared/database.php
+config/shared/settings.php
+config/shared/credentials.php
+config/shared/constants.php
+config/credentials.php
+config/constants.php
+
 # ignore constants (differ between test and production)
 config/constants.php
 
@@ -26,4 +34,4 @@ public_html/upload/
 imports/
 
 # ignore logs
-nohup.out
+nohup.out./shared/database.php
