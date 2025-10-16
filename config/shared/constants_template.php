@@ -3,11 +3,11 @@
 	define('IRTS_TEST', TRUE); // change to FALSE when using in production
 
 	//MySQL Server IP Address
-	define('MYSQL_SERVER_IP', "10.127.6.29");	
+	define('MYSQL_SERVER_IP', "10.(...).29");	
 	
 	//constants that may differ between testing and production
 	if(IRTS_TEST) {
-		define('REPOSITORY_BASE_URL', 'kaust7-test.atmire.com');
+		define('REPOSITORY_BASE_URL', '(...)com');
 
 		//Database names
 		define('IRTS_DATABASE', 'test_irts');
@@ -21,13 +21,13 @@
 		define('REPOSITORY_DATABASE', 'test_repository');
 
 		//ORCID icon bitstream id
-		define('ORCID_ICON_UUID', '8b51494c-6416-48dd-bcd2-7dcc27ecc756');
+		define('ORCID_ICON_UUID', '8(...)6');
 
 		//ETD Community UUID
-		define('ETD_COMMUNITY_UUID', '1954ca3f-2a93-4789-bb8b-ed58b1f0d3cb');
+		define('ETD_COMMUNITY_UUID', '1(...)b');
 	}
 	else{
-		define('REPOSITORY_BASE_URL', 'repository.kaust.edu.sa');
+		define('REPOSITORY_BASE_URL', 're(...).sa');
 
 		//Database names
 		define('IRTS_DATABASE', 'prod_irts');
@@ -41,10 +41,10 @@
 		define('REPOSITORY_DATABASE', 'prod_repository');
 
 		//ORCID icon bitstream id
-		define('ORCID_ICON_UUID', '82a625b4-ed4b-40c8-865a-d6a5225a26a4');
+		define('ORCID_ICON_UUID', '8(...)4');
 
 		//ETD Community UUID
-		define('ETD_COMMUNITY_UUID', 'd76675ab-243e-44a5-ba15-414f45cbc39b');
+		define('ETD_COMMUNITY_UUID', 'd(...)b');
 	}	
 
 	define('REPOSITORY_URL', 'https://'.REPOSITORY_BASE_URL);
@@ -60,11 +60,11 @@
 	//Locally Defined Constants
 	define('INSTITUTION_ABBREVIATION', 'KAUST');
 	
-	define('INSTITUTION_NAME', 'King Abdullah University Of Science And Technology');
+	define('INSTITUTION_NAME', 'K(...)y');
 	
 	define('INSTITUTION_CITY', 'Thuwal');
 	
-	define('IR_EMAIL', 'repository@kaust.edu.sa');
+	define('IR_EMAIL', 'r(...).sa');
 	
 	define('LOCAL_PERSON_FIELD', 'kaust.person');
 	
@@ -73,13 +73,13 @@
 	define('DOI_BASE_URL', 'https://doi.org/');
 	
 	//LDAP constants
-	define('LDAP_ACCOUNT_SUFFIX', '@kaust.edu.sa'); //binding parameters
+	define('LDAP_ACCOUNT_SUFFIX', '(...)'); //binding parameters
 
-	define('LDAP_HOSTNAME_SSL', 'ldaps://wthdc1sr01.kaust.edu.sa:636 ldaps://wthdc2sr02.kaust.edu.sa:636'); // space-separated list of valid hostnames for failover
+	define('LDAP_HOSTNAME_SSL', 'ldaps://w(...)6'); // space-separated list of valid hostnames for failover
 
-	define('LDAP_BASE_DN', 'OU=KAUST USERS,DC=KAUST,DC=EDU,DC=SA');
+	define('LDAP_BASE_DN', '(...)=SA');
 
-	define('LDAP_PERSON_ID_ATTRIBUTE', 'extensionAttribute15');
+	define('LDAP_PERSON_ID_ATTRIBUTE', 'e(...)5');
 
 	define('LDAP_EMAIL_ATTRIBUTE', 'mail');
 	

@@ -9,8 +9,8 @@
 
 	//Metadata Source API Keys	
 	//Elsevier key is used with both Scopus and ScienceDirect
-	define('ELSEVIER_API_KEY', ''); //api key, registered under repository@kaust.edu.sa email
-	define('ELSEVIER_INST_TOKEN', ''); //institutional token required to be included to get full data with this api key
+	define('ELSEVIER_API_KEY', ''); 
+	define('ELSEVIER_INST_TOKEN', ''); 
 	
 	define('IEEE_API_KEY', '');
 
