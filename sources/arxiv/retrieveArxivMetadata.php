@@ -12,13 +12,18 @@
 		}
 		elseif($type === 'name')
 		{
+			//LASTNAME,+FIRSTNAME
 			$nameParts = explode(', ', $value);
 		
-			$value = $nameParts[1].'+'.$nameParts[0];
-			
-			$value = str_replace(' ', '+', $value);
+			//$value = $nameParts[1].'_'.$nameParts[0];
+			$value = $nameParts[0].',+'.$nameParts[1];
 
-			$url = ARXIV_API_URL.'au:%22'.$value.'%22&sortBy=submittedDate&sortOrder=descending&start=0&max_results=30';
+			
+			//$value = str_replace(' ', '_', $value);
+
+			//$url = ARXIV_API_URL.'au:%22'.$value.'%22&sortBy=submittedDate&sortOrder=descending&start=0&max_results=30';
+			$url = ARXIV_API_URL.'au:%22'.$value.'%22&sortBy=submittedDate&sortOrder=descending&start=0&max_results=300';
+			
 		}
 		elseif($type === 'OAI')
 		{

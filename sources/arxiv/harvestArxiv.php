@@ -12,6 +12,11 @@
 		//Record count variable
 		$recordTypeCounts = array('all'=>0,'new'=>0,'modified'=>0,'deleted'=>0,'unchanged'=>0,'skipped'=>0);
 
+		/* 
+		//Google Scholar based harvest
+		$max = 50;
+		$result = queryGoogleScholar($count, $max, $institutionNames, $fullTextString); 
+		*/
 		
 		//if reharvest requested
 		if(isset($_GET['reharvest'])) {
@@ -29,6 +34,8 @@
 				//get arXiv record metadata
 				$xml = retrieveArxivMetadata('arxivID', $arxivID);
 
+				//print_r($xml);
+
 				foreach($xml->entry as $item) {
 					$report .= ' -- '.$item->id.PHP_EOL;
 
@@ -43,6 +50,26 @@
 
 					$report .= '  -- '.$recordType.PHP_EOL;
 				}
+
+				//get arXiv OAI-PMH record
+				/* $xml = retrieveArxivMetadata('OAI', $arxivID);
+
+				print_r($xml);
+
+				foreach($xml->GetRecord->record->metadata->children() as $item) {
+					$report .= ' -- '.$item->id.PHP_EOL;
+
+					//process arXiv record
+					$result = processArxivRecord($item);
+
+					//whether record was modified or not
+					$recordType = $result['recordType'];
+
+					//increment record type count
+					$recordTypeCounts[$recordType]++;
+
+					$report .= '  -- '.$recordType.PHP_EOL;
+				} */
 
 				ob_flush();
 

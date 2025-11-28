@@ -1,5 +1,4 @@
-Institutional Research Tracking System 
-======================================
+# Institutional Research Tracking System 
 
 The Institutional Research Tracking System (IRTS) is a core component of KAUST Library infrastructure that tracks the research output of the university. The original need to track the output was to comply with our Open Access policy. "How do we are complaint if we don't what is out there?"
 
