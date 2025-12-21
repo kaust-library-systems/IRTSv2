@@ -21,6 +21,7 @@
 		"sources/googleScholar", 
 		"sources/googlePatents", 
 		"sources/ieee", 
+		"sources/lens",
 		"sources/local", 
 		"sources/orcid", 
 		"sources/repository", 

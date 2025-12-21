@@ -8,7 +8,7 @@
 		  CURLOPT_CUSTOMREQUEST => "POST",
 		  CURLOPT_POSTFIELDS => $paperIDsJSON,
 		  CURLOPT_HTTPHEADER => array(
-			"x-api-key: ".SEMANTIC_SCHOLAR_API_KEY,
+			//"x-api-key: ".SEMANTIC_SCHOLAR_API_KEY,
 			"Accept: application/json",
 			"Cache-Control: no-cache",
             "User-Agent: IRTS",

@@ -11,6 +11,14 @@
 	{
 		$workflowItemBody = json_decode($workflowItemResponse['body'], TRUE);
 	}
+	else
+	{
+		$message .= '<div class="col-sm-12 alert-warning border border-dark rounded">Error retrieving workflow item details: <details>
+			<summary>Details</summary>
+			<p>'.print_r($workflowItemResponse, TRUE).'</p>
+		</details></div>';
+		return;
+	}
 
 	$message .= 'Workflow Item ID: '.$workflowItemID.'<br>';
 

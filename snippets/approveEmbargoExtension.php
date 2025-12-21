@@ -70,7 +70,7 @@
 		}
 		else
 		{
-			$message .= '<br> -- ERROR - Action steps incomplete - No email sent!';
+			$message .= '<div class="alert alert-danger"> -- ERROR - Action steps incomplete - No email sent! Please retry.</div>';
 		}
 	}
 

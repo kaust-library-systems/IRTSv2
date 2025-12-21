@@ -45,7 +45,7 @@
 	
 	if(mail($recipient, 'RE: '.$emailSubject, $emailToSend, $headers))
 	{
-		$message .= '<br>-- Email sent.';
+		$message .= '<div class="alert alert-success">-- Email sent.</div>';
 	
 		$patch = array(array("op" => "remove",
 		"path" => "/metadata/kaust.embargo.extensionRequested"));
@@ -56,13 +56,13 @@
 
 		if($response['status'] == 'success')
 		{
-			$message .= '<br>-- Item marked complete, metadata flag removed.';
+			$message .= '<div class="alert alert-success">-- Item marked complete, metadata flag removed.</div>';
 
 			$response = markEmailAsComplete($messageID);
 
 			if($response['status'] == 'success')
 			{
-				$message .= '<br>-- Email category set to "Complete", email flag set as "Complete".';
+				$message .= '<div class="alert alert-success">-- Email category set to "Complete", email flag set as "Complete".</div>';
 
 				$message .= '<hr>
 		<a href="reviewCenter.php?formType=approveEmbargoExtension" type="button" class="btn btn-primary rounded" style="margin-left: 10px;">-- Start Next Item --</a>';

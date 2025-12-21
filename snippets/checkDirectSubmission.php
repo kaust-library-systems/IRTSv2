@@ -10,7 +10,7 @@
 		'dc.date.issued' => ['label' => 'Date']
 	];
 
-	if(!isset($action)) //check for workflowitems in DSpace that require review
+	if(!isset($action) || $action === 'skip') //check for workflowitems in DSpace that require review
 	{
 		$itemID = '';
 		

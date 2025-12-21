@@ -51,6 +51,46 @@
 				$entries = addToScopusList($xml, $entries);
 			}
 		}
+		elseif (isset($_GET['getCitationCount']))
+		{
+			//harvest all citation counts
+			$result = $irts->query("SELECT idInSource FROM `metadata` 
+				WHERE `source` LIKE 'scopus' 
+					AND `field` LIKE 'dc.identifier.eid'
+					AND `deleted` IS NULL");
+	
+			if($result->num_rows!==0)
+			{
+				while($row = $result->fetch_assoc())
+				{
+					$eids[] = $row['idInSource'];
+				}
+				
+				$arraysOf200 = array_chunk($eids, 100);
+				
+				foreach ($arraysOf200 as $chunk) 
+				{
+					$json = getScopusCitationCount("eid", implode(",", $chunk));
+					
+					$citationCounts = json_decode($json, true);
+					
+					// Access documents
+					$documents = $citationCounts['citation-count-response']['document'];
+					
+					foreach ($documents as $doc) {
+				    $eid = $doc['eid'];
+				    if (isset($doc['citation-count']))
+				    {
+				    	$citationCount = $doc['citation-count'];
+				    	
+				    	$saveValueResult = saveValue("scopus", $eid, "scopus.coredata.citedby-count", 0, $citationCount, NULL);
+				    
+				    	print_r($saveValueResult);
+				    }
+					}
+				}
+			}
+		}
 		else
 		{
 			//Change this to decide how many of the available updates to run
@@ -203,6 +243,8 @@
 			flush();
 			set_time_limit(0);
 		}
+
+		
 
 		$sourceSummary = saveReport($irts, $source, $report, $recordTypeCounts, $errors);
 

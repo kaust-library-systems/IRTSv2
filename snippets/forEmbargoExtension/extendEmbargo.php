@@ -22,18 +22,21 @@
 
 		if($response['status'] == 'success')
 		{
-			$message .= '<br>-- Embargo end date for item '.$itemID.' successfully updated to '.$newEmbargoEndDate.'.
-				<details>
-					<summary>Details</summary>
-					<p>'.$response['report'].'</p>
-				</details>';
+			$message .= '<div class="alert alert-success">-- Embargo end date for item '.$itemID.' successfully updated to '.$newEmbargoEndDate.'.
+					<details>
+						<summary>Details</summary>
+						<p>'.$response['report'].'</p>
+					</details>
+				</div>';
 		}
 		else
 		{
-			$message .= 'Update Error: <details>
-				<summary>Details</summary>
-				<p>'.print_r($response, TRUE).'</p>
-			</details>';
+			$message .= '<div class="alert alert-danger">Update Error: Failed to update embargo end date for item '.$itemID.'.<details>
+					<details>
+						<summary>Details</summary>
+						<p>'.print_r($response, TRUE).'</p>
+					</details>
+				</div>';
 
 			$proceed = FALSE;
 		}
@@ -50,18 +53,21 @@
 
 				if($response['status'] == 'success')
 				{
-					$message .= '<br>-- Embargo end date for bitstream '.$bitstream['id'].' successfully updated to '.$newEmbargoEndDate.'.
+					$message .= '<div class="alert alert-success">-- Embargo end date for bitstream '.$bitstream['id'].' successfully updated to '.$newEmbargoEndDate.'.
 						<details>
 							<summary>Details</summary>
 							<p>'.$response['report'].'</p>
-						</details>';
+						</details>
+						</div>';
 				}
 				else
 				{
-					$message .= 'Update Error: <details>
-						<summary>Details</summary>
-						<p>'.print_r($response, TRUE).'</p>
-					</details>';
+					$message .= '<div class="alert alert-danger">Update Error: Failed to update embargo end date for bitstream '.$bitstream['id'].'.
+						<details>
+							<summary>Details</summary>
+							<p>'.print_r($response, TRUE).'</p>
+						</details>
+					</div>';
 					
 					$proceed = FALSE;
 				}
@@ -92,13 +98,18 @@
 	
 		if($response['status'] == 'success')
 		{
-			$message .= '<br>-- Provenance statement added, embargo updated in metadata and in display.';
+			$message .= '<div class="alert alert-success">-- Provenance statement added, embargo updated in metadata and in display.</div>';
 		}
 		else
 		{
-			$message .= 'Update Error: <details>
-				<summary>Details</summary>
-				<p>'.print_r($response, TRUE).'</p>
-			</details>';
+			$message .= '<div class="alert alert-danger">Update Error: Failed to update item metadata.
+				<details>
+					<summary>Details</summary>
+					<p>'.print_r($response, TRUE).'</p>
+				</details>
+			</div>';
+
+			//set flag to FALSE to prevent email from being sent. If metadata update fails, approver should retry.
+			$proceed = FALSE;
 		}
 	}

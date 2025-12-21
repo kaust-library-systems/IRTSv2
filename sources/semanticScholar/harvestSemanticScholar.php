@@ -17,14 +17,14 @@
 		AND `field` IN ('dc.identifier.doi','dc.identifier.arxivid')
 		LIMIT 10", array('value'), 'arrayOfValues'); */
 
-		/* $dois = getValues($irts, "SELECT DISTINCT `value` FROM `metadata` 
+		$dois = getValues($irts, "SELECT DISTINCT `value` FROM `metadata` 
 			WHERE `source` LIKE 'repository' 
 			AND `field` IN ('dc.identifier.doi')", array('value'), 'arrayOfValues');
 
 		foreach($dois as $doi)
 		{
 			$ids[] = 'DOI:'.$doi;
-		} */
+		}
 
 		$arxivIDs = getValues($irts, "SELECT DISTINCT `value` FROM `metadata` 
 			WHERE `source` LIKE 'repository'
@@ -87,7 +87,7 @@
 				break;
 			}
 			
-			sleep(1);
+			sleep(5);
 		}
 		
 		$summary = saveReport($irts, $source, $report, $recordTypeCounts, $errors);

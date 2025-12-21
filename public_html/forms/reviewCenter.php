@@ -71,6 +71,8 @@
 
 				unset($idInIRTS);
 
+				unset($action);
+
 				$_SESSION['variables']['page'] = 0;
 
 				// if the users is admin show the button
@@ -110,7 +112,7 @@
 					
 					foreach($_SESSION['selections'] as $selection=>$value)
 					{
-						$selections[]=$selection.'='.$value;
+						$selections[] = $selection.'='.$value;
 					}
 
 					if(isset($page))

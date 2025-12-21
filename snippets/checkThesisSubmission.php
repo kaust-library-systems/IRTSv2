@@ -17,7 +17,9 @@
 		'dc.description.abstract' => ['label' => 'Abstract']
 	];
 
-	if(!isset($action)) //check for workflowitems in DSpace that require review
+	//echo $action;
+
+	if(!isset($action) || $action === 'skip') //check for workflowitems in DSpace that require review
 	{
 		$itemID = '';
 		
